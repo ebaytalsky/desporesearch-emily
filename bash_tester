@@ -1,0 +1,11 @@
+#!/bin/bash
+echo What is the path to the directory with all of the .dicom files?
+read datadir
+echo What is the path to the directory where you would like to keep the .heudiconv files?
+read heudidir
+echo What is the path to the directory with the excel sheet?
+read exceldir
+echo What is the patient number?
+read patno
+echo What is the session number?
+read sesno

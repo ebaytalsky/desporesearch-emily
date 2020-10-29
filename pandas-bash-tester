@@ -1,0 +1,100 @@
+#SQL additional for bash-tester
+#imports from Data100
+import numpy as np
+import pandas as pd
+import matplotlib
+import matplotlib.pyplot as plt
+import seaborn as sns
+import zipfile
+import os # Used to interact with the file system
+from pathlib import Path
+#data_dir = Path('.')
+#data_dir.mkdir(exist_ok = True)
+#file_path = data_dir / Path('data.zip')
+#dest_path = file_path
+pat_no = 15 #change to patient number
+pathName = Path(".heudiconv/" + str(pat_no) + "/info")
+brain_dat = pd.read_csv(pathName/"dicominfo_ses-01.tsv", encoding='ISO-8859-1')
+brain_data = pd.DataFrame(brain_dat)
+#indexString for spacing
+indexStr = "     "
+#Common scans and their type - anat, func, diff, or prof
+datType = { "rage": "anat", "slow":"anat", "bold":"func", "gre": "func", "fair":"anat", "tof":"prof",
+"sag":"prof", "cor":"prof", "tra": :"prof" }
+groups = []
+
+def infoGroups():
+
+
+def infoBody():
+
+
+
+
+
+
+def genGroups():
+    dcm_dir = brain_data["dcm_dir_name"].series()
+    grp_name = ""
+    for dcm in dcm_dir:
+
+        #find run number
+        start = len(dcm) - 3
+        end = len(dcm)
+        ind = dcm.find("_", start, end)
+        grp_no = dcm[ind:]
+
+        if "localizer" in dcm:
+            grp_name = "T1Rage" + str(grp_no)
+        if "mprage" in dcm:
+            grp_name = "T1Rage" + str(grp_no)
+        if "gre" in dcm:
+            grp_name = "gre" + str(grp_no)
+        if "bold" in dcm:
+            grp_name = "BOLD" + str(grp_no)
+        if "slow" in dcm:
+            grp_name = "T2Slow" + str(grp_no)
+        if "flair" in dcm:
+            grp_name = "T2Flair" + str(grp_no)
+        if "vessels" in dcm:
+            grp_name = "T1Rage" + str(grp_no)
+        if "tof" in dcm:
+            #TOF needs other considerations
+            #SAG
+            #TRA
+            #COR
+            grp_name = "TOF" + str(grp_no)
+        if "spiral" in dcm:
+            #SPIRAL needs other considerations
+            #SAG
+            #TRA
+            #COR
+            grp_name = "spiral" + str(grp_no)
+        if "dmri" in dcm:
+            grp_name = "T1Rage" + str(grp_no)
+            #DMRI needs other considerations
+            #SAG
+            #TRA
+            #COR
+        if "bias" in dcm:
+            grp_name = "T1Rage" + str(grp_no)
+
+#script header function
+def scriptWriter:
+    outP.write("import os")
+    outP.write("def create_key(template, outtype=('nii.gz',), annotation_classes=None):")
+    outP.write(indexStr + "if template is None or not template:")
+    outP.write(indexStr + indexStr + "raise ValueError('Template must be a valid format string')")
+    outP.write(indexStr + "return template, outtype, annotation_classes")
+    outP.write("def infotodict(seqinfo):")
+    infoGroups()
+    infoBody()
+    outP.write(indexStr + "return info")
+
+
+#calls to print the script header to the script and the infotodict function
+scriptWriter()
+
+
+with open("heuristic.py, "r") as heuristic:
+  for line in heuristic:
