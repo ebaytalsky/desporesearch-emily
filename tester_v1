@@ -2,19 +2,11 @@
 
 import os
 
-sourcedir='../sourcedir'
-subjnum='200525'
-destdir='..'
+sourcedir='home/despoB/emilyb/stroke_work_new/script_tester_stuff'
+subjnum='00'
+destdir='home/despoB/emilyb/test_script/test_output'
 
-scanlist = [['mb_bold_mb6_2p5mm_Arterial_47', 'func', 'rest', 'arterialw_bold'],
-            ['mb_bold_mb6_2p5mm_Arterial_SBRef_45', 'func', 'rest', 'arterialw_sbref'],
-            ['mb_bold_mb6_2p5mm_Normal_43', 'func', 'rest', 'normal_bold'],
-            ['mb_bold_mb6_2p5mm_Normal_SBRef_41', 'func', 'rest', 'normal_sbref'],
-            ['SAG_T1_MPRAGE_ADNI3adv_32', 'anat', 'T1w'],
-            ['mb_bold_mb6_2p5mm_SingleBH_55', 'func', 'bh', 'singlebh_bold'],
-            ['mb_bold_mb6_2p5mm_SingleBH_SBRef_53', 'func', 'rest', 'singlebh_sbref'],
-            ['mb_bold_mb6_2p5mm_Venous_51', 'func', 'rest', 'venousw_bold'],
-            ['mb_bold_mb6_2p5mm_Venous_SBRef_49', 'func', 'rest', 'venous_sbref']]
+scanlist = [['T2_SPACE_SAG_P2_ISO_0008', 'func', 'rest', 'SPACE_SAG_TESTER']]
 
 
 for thescan in scanlist:
@@ -28,7 +20,7 @@ for thescan in scanlist:
         scantask = thescan[2]
         scanacq = thescan[3]
         outputname = '_'.join(['sub-' + subjnum, 'task-' + scantask, 'acq-' + scanacq])
-        
+
     else:
         outputpath = os.path.join(destdir, 'sub-' + subjnum, 'anat')
         os.makedirs(outputpath, exist_ok=True)
@@ -38,3 +30,10 @@ for thescan in scanlist:
     cvtcmd += ['-f', outputname, os.path.join(sourcedir, 'sub-' + subjnum, scanname)]
 
     print(' '.join(cvtcmd))
+
+
+###
+#OUTPUT:
+#dcm2niix -b y -ba y -i y -z i -o home/despoB/emilyb/test_script
+#/test_output/sub-00/func -f sub-00_task-rest_acq-SPACE_SAG_TESTER home/despoB
+#/emilyb/stroke_work_new/script_tester_stuff/sub-00/T2_SPACE_SAG_P2_ISO_0008

@@ -1,0 +1,65 @@
+#!/usr/bin/env python
+
+import os
+sourcedir='../sourcedir'
+subjnum='0'
+scanlist = [['blahblahblah', 'func', 'BLAH'],
+            ['blahblahblah2', 'diff', 'BLAH_2']]
+destdir = 'home/despo/emilyb/test_script/test_output'
+
+#heudiconv -d /home/despoB/emilyb/stroke_work_new/stroke_data_new/sub-{subject}/
+#ses-{session}/*/*.dcm -o /home/despoB/emilyb/stroke_work_new/output_new/
+#heudi_no_heur/05 -f convertall -s 05 -ss 01 -c none --overwrite
+
+#stroke_data_new/sub-{subject}/ses-{session}/*/*.dcm -o
+#/home/despoB/emilyb/stroke_work_new/output_new/heudi_heur/sub-05 -f
+#/home/despoB/emilyb/stroke_work_new/output_new/heudi_no_heur/05/heuristic.py
+#-s 05 -ss 01 -c dcm2niix -b --overwrite
+
+cmd1 = {"-d" : "", "-o" : "", "-f": "convertall", "-s" : "", "-ss" : "", "-c" : "none", "--overwrite" : ""}
+cmd2 = {"-o" : "", "-f" : "", "-s" : "", "-ss":"", "-c" : "dcm2niix", "--overwrite":""}
+for thescan in scanlist:
+    scanname = thescan[0]
+    scantype = scanlist[1]
+    scankey = scanlist[2]
+    outputpath = os.path.join(destdir, 'sub-' + subjnum, scantype, scankey)
+    os.makedirs(outputpath, exist_ok=True)
+
+        cvtcmd += ['-f', outputname, os.path.join(sourcedir, 'sub-' + subjnum, scanname)]
+
+
+
+
+
+
+
+
+
+
+################
+for thescan in scanlist:
+    cvtcmd = ['dcm2niix', '-b', 'y', '-ba', 'y', '-i', 'y', '-z', 'i', '-o']
+    scanname = thescan[0]
+    scantype = thescan[1]
+    outputpath = os.path.join(destdir, 'sub-' + subjnum, 'func')
+    os.makedirs(outputpath, exist_ok=True)
+    #cvtcmd += [outputpath]
+
+
+    if scantype == 'func':
+        outputpath = os.path.join(destdir, 'sub-' + subjnum, 'func')
+        os.makedirs(outputpath, exist_ok=True)
+        cvtcmd += [outputpath]
+        scantask = thescan[2]
+        scanacq = thescan[3]
+        outputname = '_'.join(['sub-' + subjnum, 'task-' + scantask, 'acq-' + scanacq])
+
+    else:
+        outputpath = os.path.join(destdir, 'sub-' + subjnum, 'anat')
+        os.makedirs(outputpath, exist_ok=True)
+        cvtcmd += [outputpath]
+        scanacq = thescan[2]
+        outputname = '_'.join(['sub-' + subjnum, scanacq])
+
+
+    print(' '.join(cvtcmd))
