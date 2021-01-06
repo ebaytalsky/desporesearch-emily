@@ -1,11 +1,14 @@
 #!/usr/bin/env python
+#Tester script that prints out the command for the user to then
+#run heudiconv. Does so with one example scan.
+
 
 import os
-
 sourcedir='home/despoB/emilyb/stroke_work_new/script_tester_stuff'
 subjnum='00'
-destdir='home/despoB/emilyb/test_script/test_output'
+#destdir='home/despoB/emilyb/test_script/test_output'
 
+destdir = 'home/despoB/emilyb/stroke_work_new/script_tester_stuff/OUTPUT'
 scanlist = [['T2_SPACE_SAG_P2_ISO_0008', 'func', 'rest', 'SPACE_SAG_TESTER']]
 
 
@@ -15,7 +18,7 @@ for thescan in scanlist:
     scantype = thescan[1]
     if scantype == 'func':
         outputpath = os.path.join(destdir, 'sub-' + subjnum, 'func')
-        os.makedirs(outputpath, exist_ok=True)
+        os.makedirs(outputpath)# exist_ok=True)
         cvtcmd += [outputpath]
         scantask = thescan[2]
         scanacq = thescan[3]

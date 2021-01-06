@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+#Tester script that is the same as directory tester but fixes a string issue.
+import os
+sourcedir='/home/despo/emilyb/stroke_work_new/stroke_data_new/sub-05/ses-01/'
+subjnum='05'
+destdir = 'home/despo/emilyb/stroke_work_new/script_tester_stuff/OUTPUT5'
+scanlist = os.listdir(sourcedir)
+finalcmd = []
+finalstr = ""
+
+for scanname in scanlist:
+
+    cvtcmd = 'dcm2niix -b y -ba y -i y -z i -o '
+    scanname = str((scanname)).lower()
+    if "body" in scanname:
+        continue;
+
+    elif 'rage' in scanname or 'slow' in scanname or 'flair' in scanname:
+        scantype = 'anat'
+    elif 'bold' in scanname or 'gre' in scanname:
+        scantype = 'func'
+
+    elif 'tof' in scanname:
+        scantype = 'prof'
+    scanacq = scanname[2]
+
+
+    outputpath = os.path.join(destdir, 'sub-' + subjnum, 'anat')
+    os.makedirs(outputpath, exist_ok=True)
+    cvtcmd += outputpath
+    outputname = '_'.join(['sub-' + subjnum, scanacq])
+    cvtcmd += ' -f '
+    cvtcmd += outputname
+    cvtcmd += os.path.join(sourcedir, 'sub-' + subjnum, scanname)
+    finalstr += " && "
+    finalstr += cvtcmd + " "
+
+print(finalstr)
